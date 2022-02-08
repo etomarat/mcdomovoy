@@ -7,8 +7,5 @@ export const purpurAxios = axios.create({
   url:'/v2/',
   headers: {
     'Content-Type': 'application/json',
-  },
-  onDownloadProgress: ev => {
-    console.log(ev)
   }
 });

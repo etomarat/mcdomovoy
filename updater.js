@@ -1,11 +1,11 @@
 import inquirer from "inquirer";
 import fs from 'fs';
-import util from 'util';
-import stream from 'stream';
+import ProgressBar from 'progress';
 
 import {purpurAxios} from './config.js'
 
-const { SERVER_DIR_NAME } = process.env;
+const { SERVER_DIR_NAME, EXTRA_DIR_NAME } = process.env;
+const VERSIONS_FILEPATH = `./${EXTRA_DIR_NAME}/versions.json`;
 const CANCEL = 'cancel';
 
 const getVerionsList = async () => {
@@ -16,6 +16,7 @@ const getVerionsList = async () => {
     console.error(error);
   }
 }
+
 const getBuildsList = async (version) => {
   try {
     const response = await purpurAxios.get(`/purpur/${version}`);
@@ -27,7 +28,7 @@ const getBuildsList = async (version) => {
 
 const getCurrentVersion = () => {
   try {
-    const data = JSON.parse(fs.readFileSync('./versions.json'));
+    const data = JSON.parse(fs.readFileSync(VERSIONS_FILEPATH));
     const {pupurmcVersion, pupurmcBuild} = data;
     return {pupurmcVersion, pupurmcBuild}
   } catch(err) {
@@ -45,7 +46,7 @@ const setCurrentVersion = ({version, build}) => {
       pupurmcBuild: build
     }
     const dataStr = JSON.stringify(payload, null, 2);
-    const result =  fs.writeFileSync('./versions.json', dataStr);
+    fs.writeFileSync(VERSIONS_FILEPATH, dataStr);
     return true;
   } catch(err) {
     console.error(err);
@@ -55,7 +56,7 @@ const setCurrentVersion = ({version, build}) => {
 const askQuestions = async () => {
   const {pupurmcVersion: currentVersion, pupurmcBuild: currentBuild} = await getCurrentVersion();
   if (currentVersion) {
-    console.log(`Current pupurmc server is version: ${currentVersion} build: ${currentBuild}`);
+    console.log(`📌 Current pupurmc server is version: ${currentVersion} build: ${currentBuild}`);
   }
 
   const versions = await getVerionsList();
@@ -69,14 +70,12 @@ const askQuestions = async () => {
       loop: false,
     }]
   const {chosedVersion} = await inquirer.prompt(questions1);
-
   if (chosedVersion === CANCEL) {
-    console.log('nothing to update');
+    console.log('🤔 nothing to update');
     return false;
   }
 
   const builds = await getBuildsList(chosedVersion);
-
   const questions2 = [
     {
       type: 'list',
@@ -100,7 +99,7 @@ const askQuestions = async () => {
   const {chosedBuild, sameVersionConfirm} = await inquirer.prompt(questions2);
 
   if (chosedVersion === CANCEL || chosedBuild === CANCEL || sameVersionConfirm === false) {
-    console.log('nothing to update');
+    console.log('🤔 nothing to update');
     return false;
   }
   return {chosedVersion, chosedBuild};
@@ -108,14 +107,21 @@ const askQuestions = async () => {
 
 const downloadJar = async ({version, build}) => {
   try {
-    if (!fs.existsSync(`./${SERVER_DIR_NAME}`)){
-      fs.mkdirSync(`./${SERVER_DIR_NAME}`);
-    }
-    const writer = fs.createWriteStream(`./${SERVER_DIR_NAME}/server.jar`, {recursive: true});
-    const response = await purpurAxios.get(`/purpur/${version}/${build}/download`, {
+    const { data, headers } = await purpurAxios.get(`/purpur/${version}/${build}/download`, {
       responseType: 'stream'
     })
-    response.data.pipe(writer);
+    const totalLength = headers['content-length']
+    const progressBar = new ProgressBar('🚧 downloading [:bar] :percent :etas 🚧', {
+      width: 80,
+      complete: '\u2588',
+      incomplete: '\u2591',
+      renderThrottle: 1,
+      total: parseInt(totalLength)
+    })
+    data.on('data', (chunk) => progressBar.tick(chunk.length))
+
+    const writer = fs.createWriteStream(`./${SERVER_DIR_NAME}/server.jar`, {recursive: true});
+    data.pipe(writer);
 
     return new Promise((resolve, reject) => {
       writer.on('finish', resolve.bind(null, true))
@@ -134,9 +140,9 @@ export const update = async () => {
       const payload = {version: chosedVersion, build: chosedBuild};
       const downloaded = await downloadJar(payload);
       if (downloaded) {
-        const result = await setCurrentVersion(payload)
+        const result = setCurrentVersion(payload)
         if (result) {
-          console.log('update completed')
+          console.log('Update completed 🙌')
         }
       }
     }
