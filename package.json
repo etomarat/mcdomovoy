@@ -1,0 +1,26 @@
+{
+  "name": "mcdomovoy",
+  "version": "1.0.0",
+  "description": "domovoy minecraft server",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etomarat/mcdomovoy.git"
+  },
+  "author": "Azizov Marat",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/etomarat/mcdomovoy/issues"
+  },
+  "homepage": "https://github.com/etomarat/mcdomovoy#readme",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "commander": "^9.0.0",
+    "dotenv": "^16.0.0",
+    "inquirer": "^8.2.0"
+  }
+}
