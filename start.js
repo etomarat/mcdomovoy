@@ -7,11 +7,10 @@ const allocatedMem = getCurrentConfig();
 
 const javaStr = `java -Xms${allocatedMem} -Xmx${allocatedMem} -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -jar server.jar nogui`
 
-const screenStr = `cd ./${SERVER_DIR_NAME} && screen -d -m -S ${SCREEN_NAME} "${javaStr}"`
+const screenStr = `cd ./${SERVER_DIR_NAME} && screen -d -m -S ${SCREEN_NAME} ${javaStr}`
 
-
-export const startAtScreen = () => {
-  console.log('starting', screenStr)
+export const startInScreen = () => {
+  console.log(`📺 Starting in detached screen. To see logs and console attach the screen with command: screen -r $SCREEN_NAME`)
   exec(screenStr, (error, stdout, stderr) => {
     if (error) {
         console.log(`error: ${error.message}`);
