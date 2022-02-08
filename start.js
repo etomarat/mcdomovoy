@@ -15,7 +15,7 @@ const javaStr = `java -Xms${allocatedMem} -Xmx${allocatedMem} -XX:+UseG1GC
 -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs
 -Daikars.new.flags=true -jar server.jar nogui`.replace(/\n/gm,"");
 
-const screenStr = `screen -d -m -S ${SCREEN_NAME} cd ./${SERVER_DIR_NAME} && ${javaStr}`
+const screenStr = `cd ./${SERVER_DIR_NAME} && screen -d -m -S ${SCREEN_NAME} ${javaStr}`
 
 export const startAtScreen = () => {
   exec(screenStr, (error, stdout, stderr) => {
