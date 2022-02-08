@@ -27,5 +27,8 @@ program.command('update')
 program.command('setmem')
   .description('📊 Change server memory usage (recommended more than 1G)')
   .action(setMem);
+program.command('startAtScreen')
+  .description('testing')
+  .action(setMem);
 
 program.parse();

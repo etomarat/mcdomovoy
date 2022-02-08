@@ -22,7 +22,7 @@ const LIST = [
   '32G',
 ]
 
-const getCurrentConfig = () => {
+export const getCurrentConfig = () => {
   try {
     const data = JSON.parse(fs.readFileSync(MEMCONFIG_FILEPATH));
     return data.allocatedMem
