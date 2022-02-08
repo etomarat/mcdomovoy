@@ -5,6 +5,7 @@ import fs from 'fs';
 
 import { update } from './updater.js';
 import { setMem } from './utils.js';
+import { startAtScreen } from './start.js'
 
 const { SERVER_DIR_NAME, EXTRA_DIR_NAME } = process.env;
 
@@ -29,6 +30,6 @@ program.command('setmem')
   .action(setMem);
 program.command('startAtScreen')
   .description('testing')
-  .action(setMem);
+  .action(startAtScreen);
 
 program.parse();
