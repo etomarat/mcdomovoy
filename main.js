@@ -5,7 +5,7 @@ import fs from 'fs';
 
 import { update } from './updater.js';
 import { setMem } from './utils.js';
-import { startInScreen } from './start.js'
+import { startInScreen, printJavaStr } from './start.js'
 
 const { SERVER_DIR_NAME, EXTRA_DIR_NAME } = process.env;
 
@@ -28,8 +28,14 @@ program.command('update')
 program.command('setmem')
   .description('📊 Change server memory usage (recommended more than 1G)')
   .action(setMem);
-program.command('startInScreen')
+program.command('screen')
   .description('📺 Launch in the screen utility. The server will not autostart and will not reboot. Use for tests')
-  .action(startInScreen);
+  .option('-d', 'run in detach mode. You can reatach if needed')
+  .action((options) => {
+    startInScreen({detached: options.d})
+  });
+program.command('getcommand')
+  .description('☕ view java command for manualy testing. Recommended first time')
+  .action(printJavaStr);
 
 program.parse();
