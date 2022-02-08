@@ -25,5 +25,5 @@ cp .env.example .env
 
 # Change the amount of memory allocated for Java
 ```
-./main.js update
+./main.js setmem
 ```
