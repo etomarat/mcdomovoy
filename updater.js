@@ -13,7 +13,7 @@ const getVerionsList = async () => {
     const response = await purpurAxios.get("/purpur")
     return response.data.versions;
   } catch(err) {
-    console.error(error);
+    console.error(err);
   }
 }
 
