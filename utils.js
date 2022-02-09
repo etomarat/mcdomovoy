@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import fs from 'fs';
 
-const { EXTRA_DIR_NAME } = process.env;
+const { EXTRA_DIR_NAME, SERVER_DIR_NAME } = process.env;
 const MEMCONFIG_FILEPATH = `./${EXTRA_DIR_NAME}/memconfig.json`;
 
 const CANCEL = 'cancel';
@@ -87,6 +87,35 @@ export const setMem = async() => {
     const result = setCurrentConfig(newMem)
     if (result) {
       console.log('Setted 🙌')
+    }
+  } catch(err) {
+    console.error(err);
+  }
+}
+
+const askEula = async () => {
+  const prereqEulaPath = './prereq/eula.txt';
+  const eulaTxt = fs.readFileSync(prereqEulaPath, 'utf-8');
+  console.log(eulaTxt);
+  const question = {
+    type: 'confirm',
+    name: 'eulaConfirm',
+    message: '🤔 Do you want setting eula=true ?',
+    default: true,
+  }
+  const {eulaConfirm} = await inquirer.prompt([question]);
+  if (eulaConfirm) {
+    const confirmedEulaTxt = eulaTxt.replace(/eula=false/g, 'eula=true')
+    fs.writeFileSync(`${SERVER_DIR_NAME}/eula.txt`, confirmedEulaTxt, 'utf-8')
+    return true
+  }
+}
+
+export const eula = async () => {
+  try {
+    const result = await askEula();
+    if (result) {
+      console.log('eula confirmed 🙌')
     }
   } catch(err) {
     console.error(err);

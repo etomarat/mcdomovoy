@@ -4,7 +4,7 @@ import { Command } from 'commander';
 import fs from 'fs';
 
 import { update } from './updater.js';
-import { setMem } from './utils.js';
+import { setMem, eula } from './utils.js';
 import { startInScreen, printJavaStr } from './start.js'
 
 const { SERVER_DIR_NAME, EXTRA_DIR_NAME } = process.env;
@@ -24,7 +24,9 @@ const program = new Command();
 program.command('update')
   .description('💾 Download, update or change purpurmc version')
   .action(update);
-
+program.command('eula')
+  .description('🔪 set eula (need true)')
+  .action(eula);
 program.command('setmem')
   .description('📊 Change server memory usage (recommended more than 1G)')
   .action(setMem);
