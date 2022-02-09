@@ -4,7 +4,7 @@ import { Command } from 'commander';
 import fs from 'fs';
 
 import { update } from './updater.js';
-import { setMem, eula } from './utils.js';
+import { setMem, eula, onlineMode } from './utils.js';
 import { startInScreen, printJavaStr } from './start.js'
 
 const { SERVER_DIR_NAME, EXTRA_DIR_NAME } = process.env;
@@ -27,6 +27,9 @@ program.command('update')
 program.command('eula')
   .description('🔪 set eula (need true)')
   .action(eula);
+program.command('online-mode')
+  .description('🏴‍☠️ set online-mode (need true btw)')
+  .action(onlineMode);
 program.command('setmem')
   .description('📊 Change server memory usage (recommended more than 1G)')
   .action(setMem);

@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
 import fs from 'fs';
+import ini from 'ini';
 
 const { EXTRA_DIR_NAME, SERVER_DIR_NAME } = process.env;
 const MEMCONFIG_FILEPATH = `./${EXTRA_DIR_NAME}/memconfig.json`;
@@ -116,6 +117,33 @@ export const eula = async () => {
     const result = await askEula();
     if (result) {
       console.log('eula confirmed 🙌')
+    }
+  } catch(err) {
+    console.error(err);
+  }
+}
+
+const askOnlineMode = async () => {
+  const serverPropertiesPath = `./${SERVER_DIR_NAME}/server.properties`;
+  const serverPropertiesObj = ini.parse(fs.readFileSync(serverPropertiesPath, 'utf-8'));
+  const question = {
+    type: 'list',
+    name: 'onlineMode',
+    choices: ['true', 'false'],
+    message: '🏴‍☠️ select online mode (true is recommended)',
+    default: 'true',
+  }
+  const {onlineMode} = await inquirer.prompt([question]);
+  serverPropertiesObj['online-mode'] = onlineMode;
+  fs.writeFileSync(serverPropertiesPath, ini.stringify(serverPropertiesObj))
+  return true;
+}
+
+export const onlineMode = async () => {
+  try {
+    const result = await askOnlineMode();
+    if (result) {
+      console.log('online mode changed confirmed 🙌')
     }
   } catch(err) {
     console.error(err);
