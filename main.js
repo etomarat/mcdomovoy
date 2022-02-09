@@ -35,9 +35,8 @@ program.command('setmem')
   .action(setMem);
 program.command('screen')
   .description('📺 Launch in the screen utility. The server will not autostart and will not reboot. Use for tests')
-  .option('-d', 'run in detach mode. You can reatach if needed')
-  .action((options) => {
-    startInScreen({detached: options.d})
+  .action(() => {
+    startInScreen()
   });
 program.command('getcommand')
   .description('☕ view java command for manualy testing. Recommended first time')

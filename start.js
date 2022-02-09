@@ -11,10 +11,9 @@ export const printJavaStr = () => {
   console.log(javaStr)
 }
 
-export const startInScreen = ({detached}) => {
-  const screenStr = `cd ./${SERVER_DIR_NAME} && screen ${detached ? '-d ' : ''}-m -S ${SCREEN_NAME} ${javaStr}`
-  console.log(screenStr);
-  // console.log(`📺 Starting in detached screen. To see logs and console attach the screen with command: screen -r ${SCREEN_NAME}`)
+export const startInScreen = () => {
+  const screenStr = `cd ./${SERVER_DIR_NAME} && screen -d -m -S ${SCREEN_NAME} ${javaStr}`
+  console.log(`📺 Starting in detached screen. To see logs and console attach the screen with command: screen -r ${SCREEN_NAME}`)
   exec(screenStr, (error, stdout, stderr) => {
     if (error) {
         console.log(`error: ${error.message}`);
