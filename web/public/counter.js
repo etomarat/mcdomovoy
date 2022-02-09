@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const fetchData = async () => {
     // const response = await fetch('http://localhost:8000/api/get-info');
-    const info = await fetch('/api/get-info');
+    const response = await fetch('/api/get-info');
     const result = await response.json()
     return result;
   }
