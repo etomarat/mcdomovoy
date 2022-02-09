@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MC DOMOVOY (домовой майнкрафт сервер)</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="minecraft" ></div>
+    <div class="users-list">
+      <div class="users-list__holder">
+        <div class="users-list__item">
+          Онлайн <span class="users-list__online">0\20</span>
+        </div>
+        <div class="users-list__item users-list__item--hidden users-list__item--player">
+          <span class="users-list__name"></span>
+          <span class="users-list__emoji">😋</span>
+        </div>
+        <div class="users-list__item users-list__item--hidden users-list__item--empty">
+          <span class="users-list__name">пусто</span>
+          <span class="users-list__emoji">😾</span>
+        </div>
+      </div>
+    </div>
+    <div class="right-block">
+      <div class="launchers">
+        <div class="launchers__title">Для запуска игры скачай лаунчер, <br> а в нём нужную версию майнкрафта. <br><small>и ещё укажи имя пользователя (без пароля)</small></div>
+        <a target="_blank" href="https://github.com/huanghongxun/HMCL/releases/download/v3.5.2.218/HMCL-3.5.2.218.exe" class="launcher">лаунчер для windows</a><br>
+        <a target="_blank" href="https://github.com/huanghongxun/HMCL/releases/download/v3.5.2.218/HMCL-3.5.2.218.jar" class="launcher">лаунчер для mac os и линукс</a>
+        <div class="connectInfo">
+          <h3>и подключайся к серверу:</h3>
+          <blockquote>domovoy.hopto.org</blockquote>
+        </div>
+      </div>
+    </div>
+    <div id="instruccions">
+      <h1><img src="./logo.png" alt="" class="logo"></h1>
+      <span>нажми шоб свинья задохнулась</span>
+    </div>
+    <div id="version">
+
+    </div>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+	  <script src="./script.js"></script>
+	  <script src="./counter.js"></script>
+  </body>
+</html>

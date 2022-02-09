@@ -1,0 +1,150 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Mono', monospace;
+}
+
+#minecraft {
+  background-image: -webkit-radial-gradient(#54e2d5, #027cb3);
+  background-image: radial-gradient(#54e2d5, #027cb3);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#minecraft.noBreathe{
+  background-image: -webkit-radial-gradient(#121a48, #3F51B5);
+  background-image: radial-gradient(#121a48, #3F51B5);
+}
+#version,#instruccions{
+  position:fixed;
+  bottom:20px;
+  width:100%;
+  text-align:center;
+  color:white;
+  font-size:15px;
+  font-family: 'PT Mono', monospace;
+}
+
+#instruccions{
+  top:30px;
+}
+#instruccions span{
+  color: white;
+  font-weight:bold;
+}
+#instruccions h1{
+  margin-bottom: 40px;
+}
+
+a{
+  text-decoration: none;
+  font-weight:bold;
+  color:white;
+}
+
+.users-list {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.users-list__holder {
+  color: #3F51B5;
+  width: 360px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotating-back {
+  from {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+  to {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+.users-list__emoji {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+  transform-origin: center center;
+}
+.users-list__item:nth-child(even) .users-list__emoji {
+  -webkit-animation: rotating-back 2s linear infinite;
+  -moz-animation: rotating-back 2s linear infinite;
+  -ms-animation: rotating-back 2s linear infinite;
+  -o-animation: rotating-back 2s linear infinite;
+  animation: rotating-back 2s linear infinite;
+}
+.users-list__item {
+  padding: 10px 20px;
+  background: white;
+  color: #3F51B5;
+  width: fit-content;
+  display: flex;
+}
+
+.users-list__item--hidden {
+  display: none;
+}
+
+.users-list__item:nth-child(even) {
+  background: rgb(200, 203, 255);
+  color: #3F51B5;
+}
+.users-list__item--empty {
+  opacity: 0.3;
+}
+
+.right-block {
+  position: fixed;
+  right: 16px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1000;
+  line-height: 200%;
+}
+
+.right-block h3 {
+  margin: 0;
+}
+.right-block a {
+  margin-bottom: 12px;
+  border-bottom: 1px dashed white;
+}

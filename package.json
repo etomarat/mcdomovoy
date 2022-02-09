@@ -23,6 +23,7 @@
     "dotenv": "^16.0.0",
     "ini": "^2.0.0",
     "inquirer": "^8.2.0",
+    "minecraft-server-util": "^5.2.9",
     "progress": "^2.0.3"
   }
 }
